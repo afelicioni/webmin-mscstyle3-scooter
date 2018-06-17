@@ -24,7 +24,7 @@ else {
 @msc_modules = &get_visible_module_infos()
 	if (!scalar(@msc_modules));
 
-if (!defined($in{'cat'})) {
+if (!($in{'cat'})) {
 	# Maybe redirect to some module after login
 	local $goto = &get_goto_module(\@msc_modules);
 	if ($goto) {
@@ -70,9 +70,9 @@ elsif ($gconfig{"notabs_${base_remote_user}"} == 2 ||
 else {
 	# Generate categorized module list
 	print "<table border=0 cellpadding=0 cellspacing=0 width=95% align=center><tr><td><table border=0 cellpadding=0 cellspacing=0 height=20><tr>\n";
-	$usercol = defined($gconfig{'cs_header'}) ||
-		   defined($gconfig{'cs_table'}) ||
-		   defined($gconfig{'cs_page'});
+	$usercol = ($gconfig{'cs_header'}) ||
+		   ($gconfig{'cs_table'}) ||
+		   ($gconfig{'cs_page'});
 	foreach $c (@cats) {
 		$t = $cats{$c};
 		if ($in{'cat'} eq $c) {

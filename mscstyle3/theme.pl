@@ -282,10 +282,10 @@ if (@_ > 1 && !$one && $remote_user && !$notabs) {
     $per = $cats ? 100.0 / $cats : 100;
 
     if ($main::theme_index_page) {
-	    if (!defined($in{'cat'})) {
+	    if (!($in{'cat'})) {
 	       
 		# Use default category
-		if (defined($gconfig{'deftab'}) &&
+		if (($gconfig{'deftab'}) &&
 		    &indexof($gconfig{'deftab'}, @cats) >= 0) {
 		    $in{'cat'} = $gconfig{'deftab'};
 		    }
@@ -421,7 +421,7 @@ if (@_ > 1 && (!$_[5] || $ENV{'HTTP_WEBMIN_SERVERS'})) {
 	if (ref($_[2]) eq "ARRAY" && !$ENV{'ANONYMOUS_USER'}) {
 		&tab_start; print &hlink($text{'header_help'}, $_[2]->[0], $_[2]->[1]); &tab_end;
 		}
-	elsif (defined($_[2]) && !$ENV{'ANONYMOUS_USER'}) {
+	elsif (($_[2]) && !$ENV{'ANONYMOUS_USER'}) {
 		&tab_start; print &hlink($text{'header_help'}, $_[2]); &tab_end;
 		}
 	if ($_[3]) {
@@ -499,6 +499,10 @@ else {
 	}
 }
 
+sub theme_postbody
+{
+}
+
 sub theme_footer {
 local $i;
 my $module_name = &get_module_name();
@@ -538,7 +542,7 @@ print "</td></tr></table>\n";
 
 print "<br>\n";
 if (!$_[$i]) {
-    if (defined(&theme_postbody)) {
+    if ((&theme_postbody)) {
         &theme_postbody(@_);
         }
     print "</body></html>\n";
@@ -578,13 +582,13 @@ sub theme_ui_post_header
 {
 local ($text) = @_;
 local $rv;
-if (defined($text)) {
+if (($text)) {
 	$rv .= "<center><font size=+1>$text</font></center>\n";
 	}
 if ($main::printed_unbuffered_header) {
 	$rv .= "<hr>\n";
 	}
-elsif (!defined($text)) {
+elsif (!($text)) {
 	$rv .= "<br>\n";
 	}
 return $rv;
